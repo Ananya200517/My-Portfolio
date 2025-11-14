@@ -134,21 +134,39 @@ document.getElementById("contact-form")?.addEventListener("submit", (e) => {
 
 
 /* ========== CONTACT FORM HANDLER ========== */
-/*
-  HOW TO USE:
-  - Formspree (recommended for static hosting):
-      1) In contact.html, set action="https://formspree.io/f/YOUR_ID"
-      2) Keep method="POST"
-      3) JS below intercepts submit, does validation, sends with fetch (AJAX), and shows a status message.
-  - Netlify (no third-party):
-      1) In contact.html, change the form to:
-           <form name="contact" method="POST" data-netlify="true" data-js="contact-form" netlify-honeypot="bot-field">
-             <input type="hidden" name="form-name" value="contact">
-             <input type="text" name="bot-field" class="hp-field" />
-             ...
-           </form>
-      2) Replace the fetch() URL with "/" and encode body as FormData (Netlify parses it).
-*/
+
+/* ========== CONTACT FORM -> YOUR EXPRESS API ========== */
+const API_URL = 'https://portfolio-api-ltr4.onrender.com/contact'; // your Render URL
+
+document.querySelector('#contact-form')?.addEventListener('submit', async (e) => {
+  e.preventDefault();
+
+  const form = e.currentTarget;
+  const payload = {
+    name: form.name.value.trim(),
+    email: form.email.value.trim(),
+    subject: form.subject.value.trim(),
+    message: form.message.value.trim(),
+    _gotcha: form.querySelector('[name="_gotcha"]')?.value || '' // honeypot
+  };
+
+  try {
+    const res = await fetch(API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+
+    const data = await res.json();
+    if (!res.ok || !data.ok) throw new Error(data.error || 'Send failed');
+
+    document.querySelector('#form-status').textContent = 'Thanks! Your message was sent.';
+    form.reset();
+  } catch (err) {
+    document.querySelector('#form-status').textContent = 'Sorry, something went wrong. Please try again.';
+    console.error(err);
+  }
+});
 
 (function contactForm() {
   const form = document.querySelector('[data-js="contact-form"]');
@@ -158,66 +176,72 @@ document.getElementById("contact-form")?.addEventListener("submit", (e) => {
   const fields = {
     name: form.querySelector("#name"),
     email: form.querySelector("#email"),
+    subject: form.querySelector("#subject"),
     message: form.querySelector("#message"),
   };
 
   function setError(input, msg) {
     const err = input?.parentElement?.querySelector(".error");
     if (err) err.textContent = msg || "";
-    input?.setAttribute("aria-invalid", msg ? "true" : "false");
+    if (input) input.setAttribute("aria-invalid", msg ? "true" : "false");
   }
-
   function validate() {
     let ok = true;
-    // Name
+    // name
     if (!fields.name.value.trim()) { setError(fields.name, "Please enter your name."); ok = false; } else setError(fields.name);
-    // Email
+    // email
     const email = fields.email.value.trim();
     const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!email) { setError(fields.email, "Email is required."); ok = false; }
     else if (!re.test(email)) { setError(fields.email, "Please enter a valid email."); ok = false; }
     else setError(fields.email);
-    // Message
+    // message
     if (!fields.message.value.trim()) { setError(fields.message, "Please enter a message."); ok = false; } else setError(fields.message);
+
     return ok;
   }
 
   form.addEventListener("submit", async (e) => {
-    // Let the browser do native validation messages too, but we’ll enhance:
     e.preventDefault();
 
-    // Quick bot check (honeypot)
+    // Honeypot (simple bot trap)
     const hp = form.querySelector('input[name="_gotcha"]');
-    if (hp && hp.value) return; // silently drop
+    if (hp && hp.value) return;
 
     if (!validate()) {
       if (status) status.textContent = "Please fix the errors above.";
       return;
     }
 
-    // Build request from form fields
-    const formData = new FormData(form);
+    const endpoint = form.dataset.api; // <— from data-api on the form
+    if (!endpoint) {
+      if (status) status.textContent = "Configuration error: API endpoint missing.";
+      return;
+    }
 
-    // Show sending state
+    const payload = {
+      name: fields.name.value.trim(),
+      email: fields.email.value.trim(),
+      subject: (fields.subject?.value || "").trim(),
+      message: fields.message.value.trim(),
+    };
+
     if (status) status.textContent = "Sending…";
 
     try {
-      // Formspree endpoint from the form's action attribute
-      const endpoint = form.getAttribute("action") || "#";
       const res = await fetch(endpoint, {
         method: "POST",
-        headers: { "Accept": "application/json" },
-        body: formData
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
       });
 
       if (res.ok) {
         if (status) status.textContent = "Thanks! Your message has been sent.";
         form.reset();
-        Object.values(fields).forEach(i => setError(i, "")); // clear errors
+        Object.values(fields).forEach(i => setError(i, ""));
       } else {
-        // Formspree error details
         const data = await res.json().catch(() => ({}));
-        const msg = data?.errors?.[0]?.message || "Something went wrong. Please try again or email me directly.";
+        const msg = data?.error || data?.message || "Something went wrong. Please try again.";
         if (status) status.textContent = msg;
       }
     } catch (err) {
@@ -225,6 +249,7 @@ document.getElementById("contact-form")?.addEventListener("submit", (e) => {
     }
   });
 })();
+
 
 // === Accessible mobile nav toggle ===
 (function navToggle() {

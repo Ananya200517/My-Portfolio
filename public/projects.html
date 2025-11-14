@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Projects • Your Name</title>
+<meta name="description" content="My Projects" />
+<link rel="stylesheet" href="styles.css" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="page-projects">
+
+  <!-- Header -->
+  <header class="site-header">
+    <a class="logo" href="#home">Ananyashree Kothari</a>
+
+    <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+      <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+    </button>
+
+    <nav id="site-nav" class="site-nav" aria-label="Primary">
+      <a href="index.html">Home</a>
+      <a href="about.html">About Me</a>
+      <a href="projects.html">My Projects</a>
+      <a href="contact.html">Contact</a>
+      <a href="skills.html">Skills</a>
+      <a class="cta" href="assets/Resume.internship (1).pdf" target="_blank" rel="noopener">Resume</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div class="container">
+      <h1>My Projects</h1>
+      <p class="hero-subtitle">A selection of my work showcasing my skills and experience.</p>
+      
+
+      <!-- ===== Projects List ===== -->
+      <section class="projects-listing">
+        <!-- Project 1 -->
+        <article class="project-item">
+          <figure class="project-thumb">
+            <img src="images/blog.jpg.webp"/>
+          </figure>
+          <div class="project-content">
+            <h2>Parent Tales</h2>
+            <div class="project-skills">HTML5 · CSS3</div>
+            <p class="project-desc">
+              A blog website dedicated to sharing the success of my parents. Also added a page where people can order freshly baked goods online by my mom.
+              Features a clean, responsive design for optimal reading on all devices.
+            </p>
+            <a class="btn-github" href="https://github.com/Ananya200517/Parent-Tales" target="_blank" rel="noopener">View on GitHub</a>
+          </div>
+        </article>
+
+        <!-- Project 2 -->
+        <article class="project-item">
+          <figure class="project-thumb">
+            <img src="images/word-connect.webp"/>
+          </figure>
+          <div class="project-content">
+            <h2>Word Connect</h2>
+            <div class="project-skills">JavaScript · HTML5 · CSS3</div>
+            <p class="project-desc">
+              A web-based word puzzle game where players form words from a set of letters.
+              Features two modes, scoring, and a timer to enhance engagement. Responsive design for all devices.</p> 
+            <a class="btn-github" href="https://github.com/Ananya200517/Word-Connect" target="_blank" rel="noopener">View on GitHub</a>
+          </div>
+        </article>
+
+        <!-- Project 3 -->
+        <article class="project-item">
+          <figure class="project-thumb">
+            <img src="images/tms.png"/>
+          </figure>
+          <div class="project-content">
+            <h2>Task Management System</h2>
+            <div class="project-skills">Java · OOP</div>
+            <p class="project-desc">
+              A simple Task Management System designed to help users organize, create, and track tasks efficiently. Includes features like task creation, editing, deletion, and status updates through an intuitive interface.
+              Implements OOP principles for modularity and maintainability.
+            </p>
+            <a class="btn-github" href="https://github.com/Ananya200517/Task-Management-System" target="_blank" rel="noopener">View on GitHub</a>
+          </div>
+        </article>
+
+        <!-- Project 4 -->
+        <article class="project-item">
+          <figure class="project-thumb">
+            <img src="images/cc.jpg"/>
+          </figure>
+          <div class="project-content">
+            <h2>Credit Card Validator</h2>
+            <div class="project-skills">Java</div>
+            <p class="project-desc">
+              A Java program that validates credit card numbers using the Luhn algorithm. It checks for valid prefixes and lengths for major card types (Visa, MasterCard, American Express, Discover) and provides user feedback on validity.
+            </p>
+            <a class="btn-github" href="https://github.com/Ananya200517/CC-Validator" target="_blank" rel="noopener">View on GitHub</a>
+          </div>
+        </article>
+      </section>
+      </div>
+  </section>
+      <!-- ===== End Projects List ===== -->
+
+      <footer class="site-footer">
+        <div class="container">
+          <p class="muted">© <span id="year"></span> Ananyashree Kothari</p>
+        </div>
+      </footer>
+
+
+  <script src="main.js" defer></script>
+</body>
+</html>

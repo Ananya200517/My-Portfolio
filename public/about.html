@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>About • Ananyashree Kothari</title>
+  <meta name="description" content="About Me" />
+  <link rel="preload" href="assets/profile.jpg" as="image" imagesrcset="assets/profile.jpg" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body class="page-about">
+  <!-- Header -->
+  <header class="site-header">
+    <a class="logo" href="#home">Ananyashree Kothari</a>
+
+    <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+      <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+    </button>
+
+    <nav id="site-nav" class="site-nav" aria-label="Primary">
+    <a href="index.html">Home</a>
+      <a href="about.html">About Me</a>
+      <a href="projects.html">My Projects</a>
+      <a href="contact.html">Contact</a>
+      <a href="skills.html">Skills</a>
+      <a class="cta" href="assets/Resume.internship (1).pdf" target="_blank" rel="noopener">Resume</a>
+    </nav>
+  </header>
+
+  <!-- ====== Hero ====== -->
+  <section class="about-hero">
+    <div class="container">
+      <div class="about-hero__media">
+      </div>
+      <div class="about-hero__content">
+        <h1>About Me</h1>
+        <p class="lead">
+          Hi! I’m <strong>Ananyashree Kothari</strong>, a third-year <strong>Computer Science</strong> student at San Francisco State University with a passion for building impactful, user-centered software. I love turning ideas into real applications — from full-stack web platforms to interactive games and AI-driven projects that solve real-world problems.
+I’ve gained hands-on experience in Java, JavaScript, C++, HTML, CSS, Node.js, Express, and PostgreSQL, developing projects like Learn Loop, a skill-exchange platform that connects learners and mentors. These projects have strengthened my understanding of both front-end and back-end development and deepened my appreciation for creating smooth, intuitive user experiences.
+Outside of coding, I serve as the Vice President of the Indian Student Association, Secretary of the AI Agents Club, and Social Media Officer of Engineering Student's Advisory Board, where I organize events, foster collaboration, and encourage curiosity in technology and AI.
+I’m currently seeking software engineering internships where I can apply my skills, learn from experienced developers, and contribute to meaningful, scalable projects.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== Life Outside CS ====== -->
+<section class="about-life" aria-labelledby="life-title">
+  <div class="container">
+    <header class="about-life__header">
+      <h2 id="life-title">Beyond the {Code}</h2>
+      <p class="muted">
+        When I’m not building software, you’ll find me experimenting in the kitchen, learning new dance steps,
+        discovering new spots around the city, or organizing cultural events for our cultural org on campus!!
+      </p>
+    </header>
+
+    <!-- Hobby cards -->
+    <div class="life-grid" role="list">
+      <!-- Baking -->
+      <article class="life-card" role="listitem">
+        <figure class="life-card__media">
+    <img src="images/cake.PNG" alt="Frosted cupcakes on a cooling rack" loading="lazy" />
+  </figure>
+        <h3>Baking</h3>
+        <p>I love baking and testing new recipes and sharing the sweetness of these cakes and pastries with my friends and family.</p>
+      </article>
+
+      <!-- Dancing -->
+      <article class="life-card" role="listitem">
+        <figure class="life-card__media">
+    <img src="images/dance.png" alt="Dance studio with mirrors and warm lighting" loading="lazy" />
+  </figure>
+        <h3>Dancing</h3>
+        <p>Dancing is my favourite past time hobby that helps me handle my stressful routines. Whether its free style or classical dance, I love to learn and choreograph new moves.</p>
+      </article>
+
+      <!-- Exploring spots -->
+      <article class="life-card" role="listitem">
+        <figure class="life-card__media">
+    <img src="images/sf.webp" alt="Golden hour viewpoint over the Bay" loading="lazy" />
+  </figure>
+        <h3>Exploring New Spots</h3>
+        <p>Hunting cozy cafés, viewpoints, and weekend mini-adventures around SF is my go to leisure activity. I love going on solo dates and spending time with myself, reflecting upon my stuff.</p>
+      </article>
+
+      <!-- ISA events -->
+      <article class="life-card" role="listitem">
+        <figure class="life-card__media">
+    <img src="images/isa.webp" alt="Indian Student Association cultural night on campus" loading="lazy" />
+  </figure>
+        <h3>ISA Events</h3>
+        <p>As VP of ISA, I plan cultural nights, mixers, and collabs—bringing people together on campus. I love organizing these events as they help me stay connected to my roots as an international student.</p>
+      </article>
+    </div>
+
+    <!-- Optional photo strip / gallery (swap with your images or remove) -->
+    <h1 class="life-gallery__title">A glimpse into my gallery</h1>
+    <div class="life-gallery" aria-label="Photo gallery">
+      <figure class="life-gallery__item">
+        <img src="images/a5.HEIC" alt="Cliffside trail at sunrise" loading="lazy" />
+      </figure>
+      <figure class="life-gallery__item">
+        <img src="images/a6.JPG" alt="City street with motion blur at blue hour" loading="lazy" />
+      </figure>
+      <figure class="life-gallery__item">
+        <img src="images/a3.HEIC" alt="Student Association cultural night" loading="lazy" />
+      </figure>
+      <figure class="life-gallery__item">
+        <img src="images/a1.jpg" alt="Yoga mat by a window with plants" loading="lazy" />
+      </figure>
+      <figure class="life-gallery__item">
+        <img src="images/a4.HEIC" alt="Cup of coffee on a wooden table" loading="lazy" />
+      </figure>
+    </div>
+  </div>
+</section>
+
+
+  <!-- ====== Global Footer ====== -->
+  <footer class="site-footer">
+    <div class="container">
+      <p class="muted">© <span id="year"></span> Ananyashree Kothari</p>
+    </div>
+  </footer>
+
+  <script src="main.js">
+  </script>
+</body>
+</html>

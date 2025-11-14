@@ -1,0 +1,992 @@
+/* ===== Theme ===== */
+:root{
+  --bg-dark: #0d0f16;
+  --surface: #ff8364;
+  --text: #e6e7ee;
+  --muted: #ffffff;
+  --accent: #ff7a59;           
+  --border: rgba(255,255,255,0.12);
+  --shadow: 0 10px 30px rgba(0,0,0,0.35);
+
+  /* Hex controls */
+  --ring: clamp(12px, 2.4vw, 20px);     /* thickness of colored ring */
+  --hex-size: min(44vw, 520px);         /* base size of the hex */
+  --hex-gap: clamp(16px, 2.4vw, 22px);  /* space between ring and white canvas */
+  --ring-color: var(--accent);
+}
+
+*{ box-sizing:border-box; }
+html,body{ height:100%; }
+body{
+  margin:0;
+  font-family:'Poppins',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+  background: var(--bg-dark);
+  color: var(--text);
+  line-height:1.6;
+}
+
+/* ===== Layout helpers ===== */
+.container{ width:min(1100px,92%); margin-inline:auto; }
+.section{ padding:4rem 0; }
+.section-title{ font-size:clamp(1.4rem,2.2vw,2rem); margin:0 0 1rem; }
+
+/* ===== Header / Nav ===== */
+.site-header{
+  position:sticky; top:0; z-index:30;
+  background: color-mix(in oklab, var(--bg-dark) 70%, white 0%);
+  backdrop-filter: blur(8px);
+  border-bottom:1px solid var(--border);
+  display:flex; align-items:center; justify-content:space-between;
+  padding:.75rem 1rem;
+}
+.logo{ font-weight:700; text-decoration:none; color:var(--text); }
+.site-nav{ display:flex; gap:1rem; align-items:center; }
+.site-nav a{ color:var(--muted); text-decoration:none; }
+.site-nav a:hover{ color:var(--text); }
+.site-nav .cta{ padding:.45rem .8rem; border-radius:999px; border:1px solid var(--border); }
+.nav-toggle{ display:none; border:0; background:none; }
+.nav-toggle .bar{ display:block; width:22px; height:2px; background:var(--text); margin:4px 0; }
+
+/* ===== Hero ===== */
+.hero-dark{
+  background:
+    radial-gradient(1000px 500px at 15% -10%, #121521 0%, transparent 40%),
+    radial-gradient(900px 480px at 90% -10%, #121521 0%, transparent 45%),
+    var(--bg-dark);
+  color: var(--text);
+  padding: 4.5rem 0 3.5rem;
+  border-bottom: 1px solid rgb(255, 255, 255);
+}
+.hero-grid{
+  display:grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  align-items:center;
+  gap:2.5rem;
+}
+
+/* Left copy */
+.hero-copy .eyebrow{
+  text-transform:uppercase; letter-spacing:.14em; font-size:.85rem;
+  color:var(--muted); margin:0 0 .6rem;
+}
+.hero-copy h1{
+  font-size:clamp(2.2rem, 5vw, 3.4rem);
+  margin:0 0 .35rem 0; font-weight:800;
+}
+.hero-copy .accent{ color:var(--accent); }
+.role{
+  margin:0 0 .75rem; font-size:clamp(1.3rem, 2.4vw, 1.6rem);
+  color:var(--muted); font-weight:700;
+}
+.hero-copy .sub{ color:var(--muted); max-width:60ch; margin:0 0 1.2rem; }
+
+/* === Even edges + smooth line breaks for hero intro === */
+.hero-copy .sub{
+  /* keep your color/max-width; add rhythm + justification */
+  line-height: 1.7;
+  text-align: justify;
+  text-justify: inter-word;
+  text-align-last: start;       /* don't stretch the last line */
+
+  /* better word breaks for clean edges */
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  hanging-punctuation: first;
+
+  /* nicer wrapping on modern browsers */
+  text-wrap: pretty;
+}
+
+/* If you split the intro into two <p class="sub"> blocks */
+.hero-copy .sub + .sub{ margin-top: .8rem; }
+
+
+/* Buttons */
+.btn{ display:inline-block; padding:.75rem 1.05rem; border-radius:12px;
+      text-decoration:none; transition:transform .08s ease, box-shadow .2s; }
+.btn:active{ transform: translateY(1px); }
+.btn-accent{
+  background: var(--accent); color:#0c0d12; font-weight:700;
+  box-shadow: 0 8px 24px rgba(255,122,89,.25);
+}
+.btn-outline{ color:var(--text); border:1px solid rgba(255,255,255,.18); background:transparent; }
+
+/* Skill chips */
+.skill-chips{ list-style:none; display:flex; flex-wrap:wrap; gap:.5rem; padding:0; margin:1rem 0 0; }
+.skill-chips li{
+  font-size:.8rem; color:var(--muted);
+  border:1px solid var(--border);
+  padding:.35rem .6rem; border-radius:999px; background: rgba(255,255,255,.02);
+}
+
+/* ===== Hex portrait (right column) ===== */
+.hex-frame{ display:grid; place-items:center; padding:1rem; }
+
+/* Colored ring */
+.hex-outer{
+  position:relative;
+  width: var(--hex-size);
+  aspect-ratio: 1;
+  background: var(--ring-color);
+  clip-path: polygon(25% 6%, 75% 6%, 94% 50%, 75% 94%, 25% 94%, 6% 50%);
+  filter:
+    drop-shadow(0 24px 60px rgba(0,0,0,.45))
+    drop-shadow(0 0 26px rgba(255,122,89,.20));
+  border-radius: 50px;
+  display:grid; place-items:center;
+}
+
+/* BOTH visible breaks in one ::after (sits above children) */
+.hex-outer::after{
+  content:"";
+  position:absolute; inset:0;
+  z-index: 4;
+  /* two rounded “cuts” placed left & right */
+  background:
+    radial-gradient(closest-side, var(--bg-dark) 98%, transparent 100%) left 50% / calc(var(--ring)*1.6) 34% no-repeat,
+    radial-gradient(closest-side, var(--bg-dark) 98%, transparent 100%) right 50% / calc(var(--ring)*1.6) 34% no-repeat;
+  /* nudge the cuts vertically (move up/down by adjusting this) */
+  transform: translateY(0%);  /* try -6% or +6% to fine-tune */
+}
+
+/* Dark inner hex to keep ring thickness even */
+.hex-inner{
+  position: relative;           /* establish layer below ::after */
+  z-index: 1;
+  width: calc(100% - var(--ring)*2);
+  height: calc(100% - var(--ring)*2);
+  background: var(--bg-dark);
+  clip-path: inherit;
+  display:grid; place-items:center;
+}
+
+/* White hex canvas with softened vertices */
+.hex-media{
+  width: calc(100% - var(--hex-gap)*2);
+  height: calc(100% - var(--hex-gap)*2);
+  background:#fff;
+  clip-path: polygon(25% 6%, 75% 6%, 94% 50%, 75% 94%, 25% 94%, 6% 50%);
+  border-radius: 50px;          /* softens the hex feel */
+  overflow: hidden;
+  display:grid; place-items:center;
+}
+
+/* Image: contained (no cropping) */
+.hex-media img{
+  width: 100%;
+  height: 88%;
+  object-fit: center;          /* <- prevents cropping */
+  object-position: 50% 50%;     /* lower % raises face; tweak as needed */
+  display:block;
+  filter: contrast(1.02) saturate(1.02);
+}
+
+/* ===== 1) Header nav: more space between links ===== */
+.site-nav{
+  gap: clamp(1.25rem, 2.4vw, 2.4rem);   /* was 1rem */
+}
+.site-nav a{
+  padding-inline: .55rem;               /* larger click target */
+}
+
+/* ===== 2) Hero: increase space between text & portrait ===== */
+.hero-dark{
+  /* how far to nudge the portrait toward the edge */
+  --hero-img-shift: clamp(10px, 3.2vw, 42px);
+}
+
+/* widen the column gap a bit */
+.hero-grid{
+  gap: clamp(2.5rem, 6vw, 6rem);        /* was 2.5rem */
+}
+
+/* right column: align portrait to the container edge and nudge it */
+.hex-frame{
+  justify-self: end;                     /* hug the right side of its grid column */
+  transform: translateX(var(--hero-img-shift));
+}
+
+/* optional: slightly tighten the text column so the gap reads cleaner */
+.hero-copy .sub{
+  max-width: 58ch;                       /* was 60ch */
+}
+
+/* Responsive */
+@media (max-width: 960px){
+  .hex-outer{ width: min(70vw, 420px); }
+}
+
+@media (max-width:640px){
+  .grid{ grid-template-columns:1fr; }
+  .site-nav{
+    display:none; position:absolute; right:1rem; top:58px;
+    flex-direction:column; background:var(--surface); border:1px solid var(--border);
+    padding:.6rem; border-radius:12px; width:210px; box-shadow:var(--shadow);
+  }
+  .site-nav.open{ display:flex; }
+  .nav-toggle{ display:inline-block; }
+}
+
+/* ===== Highlights — Vertical Timeline ===== */
+.highlights {
+  margin: 2rem 0 4rem;
+}
+
+.highlights .section-title{
+  margin-top: clamp(8px, 1.2vw, 18px); /* adds space below the line */
+}
+
+/* container for the line */
+.highlights-list {
+  position: relative;
+  list-style: none;          /* kill 1,2,3,4 */
+  margin: 0;
+  padding: 0 0 0 2.75rem;
+  --tl-x: 1.25rem;   /* horizontal position of the vertical line */
+  --dot: 16px;       /* diameter of the dot */
+  padding-left: calc(var(--tl-x) + var(--dot) + 1rem);    /* room for dots/line on the left */
+}
+
+/* the vertical line */
+.highlights-list::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 1.25rem;             /* centers line behind dots */
+  width: 2.5px;
+  background: var(--accent); /* your orange */
+  opacity: .9;
+  left: var(--tl-x);
+}
+
+/* each entry */
+.highlights-item {
+  position: relative;
+  padding: 0 0 1.75rem 0;    /* space between items */
+}
+
+/* the orange dot */
+.highlights-item::before {
+  content: "";
+  position: absolute;
+  left: calc(var(--tl-x) - var(--dot) / 2);             /* aligns dot with the line */
+  top: .45rem;               /* adjust to align with heading */
+  width: var(--dot);
+  height: var(--dot);
+  border-radius: 50%;
+  background: var(--accent);
+  /* white-ish outer halo like the screenshot */
+  box-shadow:
+    0 0 0 4px rgba(255,255,255,.14),
+    0 6px 14px rgba(0,0,0,.25);
+  z-index: 1;
+}
+
+/* content styles */
+.highlights-title {
+  font-weight: 800;
+  font-size: clamp(1.05rem, 2.2vw, 1.35rem);
+  margin: 0 0 .35rem;
+}
+
+.highlights-meta {
+  color: var(--muted);
+  margin: 0 0 .6rem;
+}
+
+/* “Equidistant” body copy (clean, even edges) */
+.highlights-desc {
+  max-width: 70ch;
+  margin: 0;
+  line-height: 1.7;
+  text-align: justify;
+  text-justify: inter-word;
+  text-align-last: start;
+  text-wrap: pretty;
+  hyphens: auto;
+  -webkit-hyphens: auto;
+}
+
+/* space when there are multiple paragraphs inside one item */
+.highlights-desc + .highlights-desc { margin-top: .6rem; }
+
+/* make the whole block breathe on large screens */
+@media (min-width: 900px) {
+  .highlights { margin-top: 2.5rem; }
+  .highlights-list { padding-left: 3rem; }
+}
+
+/* mobile: relax justification to avoid rivers */
+@media (max-width: 520px) {
+  .highlights-desc {
+    text-align: start;
+    text-justify: auto;
+  }
+}
+
+/* Keep one source of truth for geometry */
+.highlights-list{
+  --tl-x: 1.25rem;     /* line X from the list’s left edge */
+  --dot: 16px;         /* dot diameter */
+  padding-left: calc(var(--tl-x) + var(--dot) + 1rem); /* space before text */
+}
+.highlights-list::before{ left: var(--tl-x); }
+
+/* Put the dot exactly on the line, even though the item’s origin is after the padding */
+.highlights-item{ position: relative; }
+.highlights-item::before{
+  /* Distance from the item’s left edge to the line center = (list padding-left - tl-x) = dot + 1rem */
+  left: calc(-1rem - (var(--dot) * 1.5));  /* center on the line (includes -dot/2) */
+  top: .45rem;
+  width: var(--dot);
+  height: var(--dot);
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 4px rgba(255,255,255,.14), 0 6px 14px rgba(0,0,0,.25);
+  content: "";
+  position: absolute;
+  z-index: 1;
+}
+
+/* IMPORTANT: don’t replace padding-left with a fixed value at large screens.
+   Keep it derived from the variables so alignment stays correct. */
+@media (min-width: 900px){
+  .highlights-list{
+    padding-left: calc(var(--tl-x) + var(--dot) + 1.5rem);
+  }
+}
+
+/* === Timeline: perfectly center the dot on the line === */
+.highlights-list{
+  --tl-x: 1.25rem;   /* line X from list's left edge */
+  --dot: 16px;       /* dot diameter */
+  --line: 2.5px;     /* line width (match ::before width) */
+  --nudge-x: 1.5px;    /* tweak ±1px if your font/rendering shifts it */
+  padding-left: calc(var(--tl-x) + var(--dot) + 1rem);
+}
+.highlights-list::before{
+  left: var(--tl-x);
+  width: var(--line);
+}
+
+.highlights-item::before{
+  /* from item's left edge to line center = -(dot + 1rem) */
+  /* then center the dot ( -dot/2 ) and subtract half the line width */
+  left: calc(-1rem - (var(--dot) * 1.5) - (var(--line) / 2) + var(--nudge-x));
+}
+
+
+/* =========================
+   About Section (scoped)
+   ========================= */
+.container { max-width: 1100px; margin: 0 auto; padding: 0 1.25rem; }
+.accent { color: var(--accent); }
+.muted { color: rgba(230,231,238,0.7); }
+
+/* ===== Nav (minimal) ===== */
+.nav { display:flex; align-items:center; justify-content:space-between; padding:1rem 1.25rem; background:var(--surface); box-shadow: var(--shadow); }
+.nav__logo { color: var(--text); font-weight: 800; text-decoration: none; }
+.nav__toggle { display:none; background:transparent; color:var(--text); border:1px solid var(--border); border-radius:8px; padding:.4rem .6rem; }
+.nav__list { display:flex; gap:1rem; list-style:none; margin:0; padding:0; }
+.nav__list a { color: var(--muted); text-decoration:none; border:1px solid transparent; padding:.4rem .7rem; border-radius:999px; }
+.nav__list a:hover { border-color: var(--border); }
+.nav__list .is-active { color: #0c0c0c; background: var(--accent); }
+
+@media (max-width: 760px) {
+  .nav__toggle { display:block; }
+  .nav__list { display:none; flex-direction:column; background:var(--surface); padding:.75rem; border:1px solid var(--border); border-radius:12px; position:absolute; right:1rem; top:3.25rem; width:min(240px, 90vw); }
+  .nav__list.is-open { display:flex; }
+}
+
+/* ===== Page scaffold ===== */
+.page-about { background: var(--bg-dark); color: var(--text); min-height: 100dvh; display:flex; flex-direction:column; }
+.site-header, .site-footer { background: var(--surface); }
+.site-footer { padding: 1.25rem 0; border-top: 1px solid var(--border); margin-top: 2rem; }
+
+/* ===== Hero ===== */
+.page-about .about-hero { padding: clamp(3rem, 6vw, 5rem) 0;
+text-align: center;
+color: #ff7a59; }
+.about-hero .container { display:grid; grid-template-columns: 1fr; gap: 1.5rem; align-items:center; }
+.about-hero__media { display:flex; justify-content:center; }
+.about-hero h1 { font-size: clamp(1.8rem, 4.2vw, 2.6rem); margin: 0 0 .5rem; }
+.lead { font-size: clamp(1.05rem, 2.2vw, 1.15rem); line-height: 1.8; color: var(--muted); }
+.about-hero__cta { display:flex; flex-wrap:wrap; gap:.8rem; margin-top:1.2rem; }
+
+/* ===== Buttons (theme-aware) ===== */
+.btn { display:inline-flex; align-items:center; justify-content:center; padding:.7rem 1rem; border-radius:999px; font-weight:600; font-size:.95rem; border:1px solid transparent; text-decoration:none; transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease, color 180ms ease; }
+.btn:hover { transform: translateY(-1px); }
+.btn:active { transform: translateY(0); }
+.btn--primary { background: var(--accent); color: #0c0c0c; border-color: var(--accent); box-shadow: 0 8px 22px rgba(255, 122, 89, .35); }
+.btn--primary:hover { box-shadow: 0 10px 28px rgba(255, 122, 89, .45); }
+.btn--ghost { background: transparent; color: var(--text); border-color: var(--border); }
+.btn--ghost:hover { background: rgba(255,255,255,.06); border-color: rgba(255,255,255,.22); }
+
+/* ===== Motion (respects reduced motion) ===== */
+@media (prefers-reduced-motion: no-preference) {
+  .about-hero__img, .about-hero__content, .fact, .timeline__item {
+    animation: fadeUp 420ms ease both;
+  }
+  .fact:nth-child(2) { animation-delay: .06s; }
+  .fact:nth-child(3) { animation-delay: .12s; }
+  @keyframes fadeUp { from { opacity:0; transform: translateY(8px); } to { opacity:1; transform: translateY(0); } }
+}
+
+/* ===== Life Outside CS (scoped to About page) ===== */
+.page-about .about-life {
+  width: 100%;
+  padding: clamp(2.5rem, 6vw, 4rem) 0;
+  background: var(--bg-dark);
+  box-shadow: var(--shadow);
+  border-top: 1px solid var(--muted);
+}
+
+.page-about .about-life__header {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto 1.5rem;
+}
+.page-about .about-life__header h2 {
+  margin: 0 0 .4rem;
+  color: var(--accent);
+  font-size: clamp(1.4rem, 3.2vw, 1.9rem);
+}
+
+/* Hobby cards grid */
+.page-about .life-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: clamp(0.9rem, 2.5vw, 1.25rem);
+  margin-top: 1.25rem;
+}
+@media (max-width: 1080px) { .page-about .life-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 620px)  { .page-about .life-grid { grid-template-columns: 1fr; } }
+
+.page-about .life-card {
+  background: rgba(255,255,255,0.035);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 1rem;
+  transition: transform 160ms ease, box-shadow 160ms ease, border-color 160ms ease;
+  will-change: transform;
+}
+.page-about .life-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(255,255,255,0.22);
+  box-shadow: 0 10px 24px rgba(0,0,0,0.35);
+}
+.page-about .life-card__icon {
+  font-size: 1.35rem;
+  line-height: 1;
+  width: 2.2rem;
+  height: 2.2rem;
+  display:grid;
+  place-items:center;
+  border-radius: 10px;
+  background: rgba(255,122,89,0.12);
+  border: 1px solid rgba(255,122,89,0.35);
+  color: var(--accent);
+  margin-bottom: .6rem;
+}
+.page-about .life-card h3 {
+  margin: 0 0 .35rem;
+  font-size: 1.05rem;
+  color: var(--text);
+}
+.page-about .life-card p { margin: 0 0 .65rem; line-height: 1.75; color: var(--muted); }
+.page-about .chiplist { display:flex; flex-wrap:wrap; gap:.45rem; padding:0; margin:0; list-style:none; }
+.page-about .chiplist .chip { padding:.35rem .6rem; border-radius:999px; border:1px solid var(--border); background: rgba(255,255,255,0.04); color: var(--muted); font-size:.82rem; }
+
+/* Photo strip */
+.page-about .life-gallery {
+  margin-top: 1.5rem;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: .6rem;
+}
+@media (max-width: 900px) { .page-about .life-gallery { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 520px) { .page-about .life-gallery { grid-template-columns: 1fr; } }
+
+.page-about .life-gallery__item {
+  position: relative;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,0.03);
+}
+.page-about .life-gallery__item img {
+  width: 100%;
+  max-height: 100%;
+  display:block;
+  object-fit: cover;
+  gap: .6rem;
+  aspect-ratio: 4/3;
+  filter: saturate(1.05) contrast(1.02);
+  transform: scale(1.01);
+  transition: transform 200ms ease;
+}
+.page-about .life-gallery__item:hover img { transform: scale(1.03); }
+
+/* CTA */
+.page-about .life-cta {
+  margin-top: 1.2rem;
+  display:flex;
+  justify-content:center;
+  gap:.8rem;
+}
+
+/* Motion */
+@media (prefers-reduced-motion: no-preference) {
+  .page-about .life-card, .page-about .life-gallery__item, .page-about .life-stat {
+    animation: fadeUp 420ms ease both;
+  }
+  .page-about .life-card:nth-child(2) { animation-delay: .05s; }
+  .page-about .life-card:nth-child(3) { animation-delay: .1s; }
+  .page-about .life-card:nth-child(4) { animation-delay: .15s; }
+}
+
+/* Hobby card media/banner */
+.page-about .life-card__media {
+  width: 250px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,0.03);
+  margin: -0.4rem -0.4rem 0.75rem; 
+}
+
+.page-about .life-card__media img {
+  width: 100%;
+  height: 250px;
+  display: block;
+  aspect-ratio: 16/9;          
+  object-fit: cover;           
+  transform: scale(1.01);
+  transition: transform 220ms ease;
+  filter: saturate(1.05) contrast(1.02);
+}
+
+/* Photo strip: horizontal carousel */
+.page-about .life-gallery{
+  margin-top: 1.5rem;
+  display: flex;                 /* was grid */
+  overflow: hidden;              /* hide overflow */
+  gap: .6rem;
+  scroll-snap-type: x mandatory; /* snap each card */
+}
+.page-about .life-gallery__item{
+  flex: 0 0 clamp(220px, 24vw, 320px);  /* each card width */
+  scroll-snap-align: start;
+}
+
+/* == About: continuous marquee-style gallery == */
+.page-about .life-gallery{
+  position: relative;
+  overflow: hidden;
+  display: block;              /* the track will be inside */
+  margin-top: 1.5rem;
+}
+
+/* moving strip */
+.page-about .life-gallery__track{
+  display: flex;
+  gap: .6rem;
+  will-change: transform;
+  animation: life-marquee var(--marquee-dur, 30s) linear infinite;
+}
+
+/* pause when user hovers (desktop) */
+.page-about .life-gallery:hover .life-gallery__track{
+  animation-play-state: paused;
+}
+
+/* each card */
+.page-about .life-gallery__item{
+  flex: 0 0 auto;
+  width: clamp(220px, 24vw, 320px);
+  aspect-ratio: 4 / 3;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,0.03);
+  scroll-snap-align: start; /* harmless if present */
+}
+.page-about .life-gallery__item img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+@keyframes life-marquee{
+  from{ transform: translateX(0); }
+  to  { transform: translateX(calc(-1 * var(--marquee-width, 1000px))); }
+}
+
+/* accessibility: stop motion if user prefers reduced motion */
+@media (prefers-reduced-motion: reduce){
+  .page-about .life-gallery__track{ animation: none; transform: none !important; }
+}
+.page-about .life-card p{
+  text-align: justify;
+  text-justify: inter-word;
+  text-align-last: start;     /* don't stretch the last line */
+  text-wrap: pretty;          /* nicer breaks on modern browsers */
+  hyphens: auto;
+  -webkit-hyphens: auto;
+}
+
+/* keep headings natural */
+.page-about .life-card h3{ text-wrap: balance; }
+
+/* On narrow screens, avoid rivers by reverting to normal rag */
+@media (max-width: 520px){
+  .page-about .life-card p{
+    text-align: start;
+    text-justify: auto;
+  }
+}
+
+/* ===== Footer (for your current markup) ===== */
+.site-footer {
+  background: var(--surface);
+  color: var(--text);
+  border-top: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  width: 100%;
+}
+
+/* spacing */
+.site-footer .container {
+  max-width: 1100px;              /* optional: align with page grid */
+  margin: 0 auto;
+  padding: clamp(0.9rem, 2.2vw, 1.2rem) 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;        /* centered text; switch to space-between if you add links later */
+}
+
+/* optional: slim divider line only on very small screens to save space */
+@media (max-width: 480px) {
+  .site-footer .container { padding: 0.75rem 1rem; }
+}
+
+/* ===== Contact Page ===== */
+.page-contact { background: #0c0c0c; color: var(--text); min-height: 100dvh; display:flex; flex-direction:column; }
+
+/* Hero */
+.page-contact .contact-hero {
+  padding: clamp(2.5rem, 6vw, 4rem) 0 1rem;
+  background: linear-gradient(180deg, rgba(255,122,89,0.08), transparent);
+  border-bottom: 1px solid var(--muted);
+}
+.page-contact .contact-hero h1 {
+  margin: 0 0 .35rem;
+  font-size: clamp(1.8rem, 4vw, 2.4rem);
+  color: var(--accent);
+}
+
+/* Layout */
+.page-contact .contact-main { padding: 1.5rem 0 2.5rem;
+flex: 1; }
+.page-contact .contact-grid {
+  display: grid;
+  width: 700px;
+}
+@media (max-width: 920px) { .page-contact .contact-grid { grid-template-columns: 1fr; } }
+
+/* Cards */
+.page-contact .contact-card,
+.page-contact .contact-info {
+  background: var(--bg-dark);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: clamp(1rem, 2.5vw, 1.25rem);
+  box-shadow: var(--shadow);
+}
+.page-contact .contact-heading {
+  margin: 0 0 .75rem;
+  color: var(--accent);
+  font-size: clamp(1.2rem, 2.6vw, 1.5rem);
+}
+
+/* Form fields */
+.page-contact .contact-form .field { margin-bottom: .9rem; }
+.page-contact .contact-form label { display:block; font-weight: 600; margin-bottom: .35rem; }
+.page-contact .contact-form .req { color: var(--accent); margin-left: .2rem; }
+
+.page-contact .contact-form input,
+.page-contact .contact-form textarea {
+  width: 100%;
+  color: var(--text);
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: .7rem .8rem;
+  outline: none;
+  transition: border-color 160ms ease, box-shadow 160ms ease, background 160ms ease;
+}
+.page-contact .contact-form input::placeholder,
+.page-contact .contact-form textarea::placeholder { color: rgba(230,231,238,0.55); }
+.page-contact .contact-form input:focus,
+.page-contact .contact-form textarea:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(255,122,89,0.18);
+  background: rgba(255,255,255,0.05);
+}
+.page-contact .contact-form .error {
+  display:block;
+  min-height: 1em;
+  font-size: .82rem;
+  color: #ff9a9a;
+  margin-top: .25rem;
+}
+
+.page-contact .contact-form .actions {
+  display:flex; flex-wrap:wrap; gap:.8rem; margin-top:.6rem;
+}
+.page-contact .form-status { margin-top:.6rem; color: var(--muted); }
+
+/* Hide honeypot */
+.page-contact .hp-field { position:absolute; left:-9999px; width:1px; height:1px; }
+
+/* ===== Footer (for your current markup) ===== */
+.site-footer {
+  background: var(--surface);
+  color: var(--text);
+  border-top: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  width: 100%;
+}
+
+/* spacing */
+.site-footer .container {
+  max-width: 1100px;              /* optional: align with page grid */
+  margin: 0 auto;
+  padding: clamp(0.9rem, 2.2vw, 1.2rem) 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;        /* centered text; switch to space-between if you add links later */
+}
+
+/* ===== Projects — Case List (scoped to .page-projects) ===== */
+.page-projects .hero h1{
+  font-size: clamp(1.4rem, 4.5vw, 3.2rem); 
+  line-height: 1.1;
+  font-weight: 800;
+  text-wrap: balance;
+  color: var(--accent);
+}
+
+/* (optional) nudge the subtitle size a bit too */
+.page-projects .hero .lead{
+  font-size: clamp(1.1rem, 2.4vw, 1.25rem);
+  padding-top: 5px;
+}
+
+.page-projects .projects-listing {
+  width: min(1100px, 92vw);
+  margin: 28px auto 56px;
+  display: flex;
+  flex-direction: column;
+  gap: 34px;
+}
+
+.page-projects .project-item {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 18px;
+  align-items: start;
+  padding-top: 24px;
+}
+
+@media (min-width: 900px) {
+  .page-projects .project-item {
+    grid-template-columns: 1.1fr 1.2fr; /* image | content */
+    gap: 28px;
+  }
+}
+
+.page-projects .project-thumb {
+  position: relative;
+  background: #0f0f12;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: 8px;
+}
+.page-projects .project-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  align-self: center;
+}
+
+.page-projects .project-content h2 {
+  font-size: clamp(22px, 3.5vw, 38px);
+  line-height: 1.2;
+  margin: 0 0 6px;
+}
+.page-projects .project-skills {
+  font-size: 14px;
+  letter-spacing: .02em;
+  color: #cdcdcd;
+  margin: 0 0 12px;
+}
+.page-projects .project-desc {
+  font-size: 15.5px;
+  color: #e6e6e6;
+  line-height: 1.7;
+  margin: 0 0 14px;
+}
+
+.page-projects .btn-github {
+  display: inline-block;
+  padding: 10px 14px;
+  border-radius: 6px;
+  background: #ff7a59;
+  color: #fff;
+  font-weight: 700;
+  text-decoration: none;
+  border: 1px solid rgba(0,0,0,.06);
+}
+.page-projects .btn-github:hover { filter: brightness(1.05); }
+
+/* make sure the hero container has sensible spacing for the list below */
+.page-projects .hero .container { padding-bottom: 10px; }
+
+/* Projects: vertically center image and content in each row */
+@media (min-width: 900px){
+  .page-projects .project-item{
+    align-items: center;      /* was start */
+  }
+  .page-projects .project-thumb,
+  .page-projects .project-content{
+    align-self: center;       /* ensure both columns sit on the same center line */
+  }
+}
+
+/* (keeps mobile stacked layout unchanged) */
+
+
+/* ===== Footer (for your current markup) ===== */
+.site-footer {
+  background: var(--surface);
+  color: var(--text);
+  border-top: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  width: 100%;
+}
+
+/* spacing */
+.site-footer .container {
+  max-width: 1100px;              /* optional: align with page grid */
+  margin: 0 auto;
+  padding: clamp(0.9rem, 2.2vw, 1.2rem) 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;        /* centered text; switch to space-between if you add links later */
+}
+
+/* ===== Skills Page ===== */
+.page-skills { min-height: 100dvh; display:flex; flex-direction:column; background: var(--bg-dark); color: var(--text); }
+
+.page-skills .skills-hero{
+  padding: clamp(2.5rem, 6vw, 4rem) 0 1.25rem;
+  border-bottom: 1px solid var(--muted);
+  background: linear-gradient(180deg, rgba(255,122,89,0.08), transparent);
+}
+.page-skills .skills-hero h1{
+  font-size: clamp(2.4rem, 6.5vw, 4rem);
+  line-height: 1.1; font-weight: 800; text-wrap: balance; margin: 0 0 .5rem;
+  color: var(--accent);
+}
+.page-skills .skills-hero .lead{
+  font-size: clamp(1.05rem, 2.2vw, 1.25rem);
+  color: var(--muted);
+  max-width: 75ch;
+  text-wrap: pretty;
+}
+
+/* layout */
+.page-skills .skills-main{ flex:1; padding: 1.75rem 0 2.5rem; }
+.page-skills .skills-grid{
+  display:grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1rem, 3vw, 1.5rem);
+}
+@media (max-width: 820px){ .page-skills .skills-grid{ grid-template-columns: 1fr; } }
+
+/* cards */
+.page-skills .skill-card{
+  background: rgba(255,255,255,0.035);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: clamp(1rem, 2.5vw, 1.25rem);
+  box-shadow: var(--shadow);
+}
+.page-skills .skill-card.span-2{ grid-column: span 2; }
+@media (max-width: 820px){ .page-skills .skill-card.span-2{ grid-column: auto; } }
+
+.page-skills .skill-title{
+  margin: 0 0 .6rem;
+  font-size: clamp(1.1rem, 2.2vw, 1.35rem);
+  font-weight: 800;
+  color: var(--accent);
+}
+
+/* chips */
+.page-skills .chips{
+  list-style: none; display:flex; flex-wrap: wrap; gap:.5rem; padding:0; margin:0;
+}
+.page-skills .chips li{
+  font-size:.85rem; color: var(--muted);
+  border:1px solid rgba(255,255,255,.14);
+  padding:.4rem .65rem; border-radius:999px; background: rgba(255,255,255,.04);
+}
+
+/* note + buttons */
+.page-skills .skill-note{
+  margin:.25rem 0 .9rem; color: var(--muted); line-height:1.7;
+  text-align: justify; text-justify: inter-word; text-align-last: start; text-wrap: pretty;
+}
+@media (max-width:520px){ .page-skills .skill-note{ text-align: start; text-justify: auto; } }
+
+.page-skills .skill-links{ display:flex; flex-wrap:wrap; gap:.6rem; }
+
+/* ===== CTA ===== */
+.about-cta { padding: 3rem 0; text-align:center; background: linear-gradient(180deg, rgba(255,122,89,0.08), transparent); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); width: 100%; }
+.about-cta p { color: var(--muted); margin: .4rem 0 1rem; }
+
+/* CTA spans both grid columns */
+.page-skills .about-cta{
+  grid-column: 1 / -1;                 /* span both columns */
+  padding: clamp(1.5rem, 3.5vw, 2.5rem) 0;
+  text-align: center;
+  background: linear-gradient(180deg, rgba(255,122,89,0.08), transparent);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  width: 100%;
+}
+
+/* center content but keep full-bleed look */
+.page-skills .about-cta .cta-inner{
+  width: min(1100px, 92%);
+  margin-inline: auto;
+}
+
+/* optional: card look instead of full-bleed band
+.page-skills .about-cta{
+  background: rgba(255,255,255,0.035);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+}
+.page-skills .about-cta .cta-inner{ padding: 1.75rem; } */
+
+/* keep span on mobile too (harmless, grid becomes 1 col) */
+@media (max-width: 820px){
+  .page-skills .about-cta{ grid-column: 1 / -1; }
+}
+

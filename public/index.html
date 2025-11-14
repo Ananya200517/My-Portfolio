@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Portfolio</title>
+  <meta name="description" content="Ananya's Portfolio - A showcase of my projects and skills.">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- Header -->
+  <header class="site-header">
+    <a class="logo" href="#home">Ananyashree Kothari</a>
+
+    <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+      <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+    </button>
+
+    <nav id="site-nav" class="site-nav" aria-label="Primary">
+      <a href="index.html">Home</a>
+      <a href="about.html">About Me</a>
+      <a href="projects.html">My Projects</a>
+      <a href="contact.html">Contact</a>
+      <a href="skills.html">Skills</a>
+      <a class="cta" href="assets/Resume.internship (1).pdf" target="_blank" rel="noopener">Resume</a>
+    </nav>
+  </header>
+
+  <main id="home">
+    <!-- HERO -->
+    <section class="hero-dark" id="home">
+      <div class="container hero-grid">
+        <!-- Left: copy -->
+        <div class="hero-copy">
+          <p class="eyebrow">Hello</p>
+          <h1>I’m <span class="accent">Ananya</span></h1>
+          <h2 class="role">Aspiring Software Engineer</h2>
+          <p class="sub">
+            I’m a 3rd-year <strong>Computer Science</strong> student at San Francisco State University passionate about building impactful softwares. I enjoy full-stack development, exploring AI, and creating user-centered solutions through coding. I love transforming ideas into reality, interactive experiences that make technology more accessible and exciting.
+When I’m not coding, you’ll find me brainstorming new project ideas, collaborating with student tech communities, or learning the latest tools that help bring innovation to life.
+          </p>
+
+          <div class="hero-actions">
+            <a class="btn btn-accent" href="contact.html">Got a project?</a>
+          </div>
+
+          <ul class="skill-chips">
+            <li>Java</li><li>HTML5</li><li>CSS</li><li>JavaScript</li><li>C</li><li>C++</li><li>OOP</li><li>Node.js</li><li>React</li><li>PostgreSQL</li><li>Ubuntu</li><li>Git</li>
+          </ul>
+        </div>
+
+        <!-- Right: hex portrait -->
+        <div class="hex-frame">
+  <div class="hex-outer">
+    <div class="hex-inner">
+      <div class="hex-media">
+        <img src="images/hero 2.jpg" alt="Ananya portrait">
+      </div>
+    </div>
+  </div>
+</div>
+    </section>
+
+    <!-- ====== Timeline (Education & Highlights) ====== -->
+  <section class="highlights container">
+  <h3 class="section-title">Highlights</h3>
+
+  <ul class="highlights-list">
+    <li class="highlights-item">
+      <h3 class="highlights-title">San Francisco State University — B.S. Computer Science</h3>
+      <p class="highlights-meta">2023 – Present</p>
+      <p class="highlights-desc">
+        Coursework: Introduction to Computing, Intermediate Computer Programming, Data Structures,
+        Discrete Mathematics for CS, Machine Structures, Programming Methodology, Introduction to Web Software Development.
+      </p>
+    </li>
+
+    <li class="highlights-item">
+      <h3 class="highlights-title">Student Assistant — ORSP (Compliance &amp; IT Department)</h3>
+      <p class="highlights-meta">2024 – Present</p>
+      <p class="highlights-desc">
+        Adeptly performed administrative duties, data input, and document formatting using Microsoft Excel.
+        Participated in meetings via Microsoft Teams and in-person, improving communication and clerical skills.
+        Developed excellent time management by successfully managing several project deadlines over the year.
+      </p>
+    </li>
+
+    <li class="highlights-item">
+      <h3 class="highlights-title">Secretary — AI Agents Club</h3>
+      <p class="highlights-meta">2025 – Present</p>
+      <p class="highlights-desc">
+        Coordinate meetings, manage communication between members, and maintain club records.
+        Collaborate with executives to organize workshops, hackathons, and speaker events;
+        assist in promoting student involvement in applied AI projects and research discussions.
+      </p>
+    </li>
+
+    <li class="highlights-item">
+      <h3 class="highlights-title">Social Media Officer — Engineering Student’s Advisory Board</h3>
+      <p class="highlights-meta">2023 – Present</p>
+      <p class="highlights-desc">
+        Led content planning and analytics; grew engagement by creating event spotlights and
+        behind-the-scenes posts that highlighted student achievements.
+      </p>
+    </li>
+  </ul>
+</section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p class="muted">© <span id="year"></span> Ananyashree Kothari</p>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>

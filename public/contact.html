@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Contact • Ananyashree Kothari</title>
+  <meta name="description" content="Get in touch with Ananyashree Kothari — collaborations, internships, and inquiries." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body class="page-contact" id="top">
+  <!-- Header -->
+  <header class="site-header">
+    <a class="logo" href="index.html#home">Ananyashree Kothari</a>
+
+    <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+      <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+    </button>
+
+    <nav id="site-nav" class="site-nav" aria-label="Primary">
+      <a href="index.html">Home</a>
+      <a href="about.html">About Me</a>
+      <a href="projects.html">My Projects</a>
+      <a href="contact.html" aria-current="page">Contact</a>
+      <a href="skills.html">Skills</a>
+      <a class="cta" href="assets/Resume.internship (1).pdf" target="_blank" rel="noopener">Resume</a>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <section class="contact-hero">
+    <div class="container">
+      <h1>Let’s connect</h1>
+      <p class="muted">Questions, collaborations, or opportunities — drop a message and let's have a chat.</p>
+    </div>
+  </section>
+
+  <!-- Main -->
+  <main class="contact-main">
+    <div class="container contact-grid">
+
+      <!-- Form card -->
+      <section class="contact-card" aria-labelledby="contact-form-title">
+        <h2 id="contact-form-title" class="contact-heading">Send a message</h2>
+
+        <!-- hook for main.js (moved out of the tag to avoid parsing issues) -->
+        <form
+          id="contact-form"
+          class="contact-form"
+          action="https://formspree.io/f/YOUR_ID"
+          method="POST"
+          data-js="contact-form"
+          novalidate
+        >
+          <!-- Honeypot -->
+          <input type="text" name="_gotcha" class="hp-field" tabindex="-1" autocomplete="off" aria-hidden="true" />
+
+          <div class="field">
+            <label for="name">Name <span aria-hidden="true" class="req">*</span></label>
+            <input id="name" name="name" type="text" placeholder="Your full name" required />
+            <small class="error" aria-live="polite"></small>
+          </div>
+
+          <div class="field">
+            <label for="email">Email <span aria-hidden="true" class="req">*</span></label>
+            <input id="email" name="email" type="email" placeholder="you@example.com" required />
+            <small class="error" aria-live="polite"></small>
+          </div>
+
+          <div class="field">
+            <label for="subject">Subject</label>
+            <input id="subject" name="subject" type="text" placeholder="What’s this about?" />
+          </div>
+
+          <div class="field">
+            <label for="message">Message <span aria-hidden="true" class="req">*</span></label>
+            <textarea id="message" name="message" rows="6" placeholder="Write your message…" required></textarea>
+            <small class="error" aria-live="polite"></small>
+          </div>
+
+          <div class="actions">
+            <button class="btn btn--primary" type="submit">Send</button>
+            <a class="btn btn--ghost" href="mailto:kothariananyashree@gmail.com">Email directly</a>
+          </div>
+
+          <p id="form-status" class="form-status" role="status" aria-live="polite"></p>
+          <noscript>
+            <p class="muted">JavaScript is disabled. The form will submit using a normal page load.</p>
+          </noscript>
+        </form>
+      </section>
+    </div>
+  </main>
+
+  <!-- Your simple footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <p class="muted">© <span id="year"></span> Ananyashree Kothari</p>
+    </div>
+  </footer>
+
+  <script src="main.js" defer></script>
+</body>
+</html>
